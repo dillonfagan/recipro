@@ -45,7 +45,7 @@ class SearchTab extends Tab {
         super("Searching...");
 
         try {
-            rowData = Connect.getByKeyword(s);
+            rowData = HerokuConnect.getByKeyword(s);
             setup();
         } catch (SQLException e) {
             e.printStackTrace();

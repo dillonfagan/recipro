@@ -5,21 +5,27 @@ import java.util.ArrayList;
  */
 public class Recipe {
 
+    private String index;
     private String title;
-    private String instructions;
+    private String text;
 
     public Recipe() {}
 
-    public Recipe(String title, String instructions) {
+    public Recipe(String index, String title, String text) {
+        this.index = index;
         this.title = title;
-        this.instructions = instructions;
+        this.text = text;
+    }
+
+    public String getIndex() {
+        return index;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public String getInstructions() {
-        return instructions;
+    public String getText() {
+        return text;
     }
 }

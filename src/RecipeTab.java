@@ -53,7 +53,7 @@ class RecipeTab extends Tab {
         this.recipe = recipe;
 
         titleField.setText(recipe.getTitle());
-        editor.setHtmlText(recipe.getInstructions());
+        editor.setHtmlText(recipe.getText());
 
         try {
             setRecipeEditable(false);
@@ -64,9 +64,11 @@ class RecipeTab extends Tab {
         setup();
     }
 
-    private void setup() {
+    private void setup() throws SQLException {
         deleteButton.setOnAction(a -> {
-            delete();
+            try {
+                delete();
+            } catch (SQLException e) {}
         });
 
         toolBar.getItems().addAll(titleField, deleteButton, editButton);
@@ -119,7 +121,7 @@ class RecipeTab extends Tab {
                 title = titleField.getText();
             }
 
-            Connect.add(title, " ", editor.getHtmlText());
+            HerokuConnect.add(title, editor.getHtmlText());
 
             setText(titleField.getText());
         } catch (SQLException e) {
@@ -130,7 +132,7 @@ class RecipeTab extends Tab {
     private void saveChanges() throws SQLException {
         try {
             setRecipeEditable(false);
-            Connect.update(0, titleField.getText(), " ", editor.getHtmlText());
+            HerokuConnect.update(recipe.getIndex(), titleField.getText(), editor.getHtmlText());
 
             setText(titleField.getText());
         } catch (SQLException e) {
@@ -139,12 +141,17 @@ class RecipeTab extends Tab {
     }
 
     /**
-     * Prompts the user whether or not to delete the open recipe.
-     * If confirmed, the record is deleted (if it exists) and this tab is closed.
+     * Prompts the User whether or not to delete the open Recipe.
+     * If confirmed, the Record is deleted (if it exists) and this Tab is closed.
      */
-    private void delete() {
+    private void delete() throws SQLException {
         // prompt
-        // delete recipe
+        try {
+            HerokuConnect.delete(recipe.getIndex());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         getTabPane().getTabs().removeAll(this);
     }
 }
