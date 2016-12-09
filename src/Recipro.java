@@ -16,6 +16,12 @@ public class Recipro extends Application {
     private TabPane tabs;
 
     /**
+     * Determines whether to connect to the Heroku PostgreSQL DB or
+     * a private Database.
+     */
+    private static boolean privateServer = false;
+
+    /**
      * Initializes a new Stage as the main window.
      */
     @Override
@@ -62,10 +68,26 @@ public class Recipro extends Application {
             }
         });
 
-        fileMenu.getItems().add(newRecipeCommand);
+        MenuItem serverConnectionCommand = new MenuItem("Connect to SQL Server");
+        serverConnectionCommand.setOnAction(a -> {
+            privateServer = !privateServer;
+
+            // Toggle the Label of the serverConnectionCommand
+            if (privateServer) {
+                serverConnectionCommand.setText("Connect to Heroku");
+            } else {
+                serverConnectionCommand.setText("Connect to SQL Server");
+            }
+        });
+
+        fileMenu.getItems().addAll(newRecipeCommand, serverConnectionCommand);
 
         menuBar.getMenus().add(fileMenu);
 
         return menuBar;
+    }
+
+    public static boolean connectsToPrivateServer() {
+        return privateServer;
     }
 }

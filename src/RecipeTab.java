@@ -30,6 +30,8 @@ class RecipeTab extends Tab {
 
         titleField.setPromptText("New Recipe");
 
+        editor.setHtmlText("<html dir=\"ltr\"><head></head><body contenteditable=\"true\"><h1><font face=\"Lucida Grande\" size=\"6\">New Recipe</font></h1><h2><font face=\"Lucida Grande\" size=\"5\">Ingredients</font></h2><p><ul><li><font face=\"Lucida Grande\">Add ingredients...</font></li></ul><h2><font face=\"Lucida Grande\" size=\"5\">Instructions</font></h2><p><ol><li><font face=\"Lucida Grande\">Start typing...</font></li></ol></p></p></body></html>");
+
         editButton.setText("Save");
         editButton.setOnAction(a -> {
             try {
@@ -121,7 +123,11 @@ class RecipeTab extends Tab {
                 title = titleField.getText();
             }
 
-            HerokuConnect.add(title, editor.getHtmlText());
+            if (Recipro.connectsToPrivateServer()) {
+                Connect.add(title, editor.getHtmlText());
+            } else {
+                HerokuConnect.add(title, editor.getHtmlText());
+            }
 
             setText(titleField.getText());
         } catch (SQLException e) {
@@ -132,7 +138,12 @@ class RecipeTab extends Tab {
     private void saveChanges() throws SQLException {
         try {
             setRecipeEditable(false);
-            HerokuConnect.update(recipe.getIndex(), titleField.getText(), editor.getHtmlText());
+
+            if (Recipro.connectsToPrivateServer()) {
+                Connect.update(recipe.getIndex(), titleField.getText(), editor.getHtmlText());
+            } else {
+                HerokuConnect.update(recipe.getIndex(), titleField.getText(), editor.getHtmlText());
+            }
 
             setText(titleField.getText());
         } catch (SQLException e) {
@@ -147,7 +158,11 @@ class RecipeTab extends Tab {
     private void delete() throws SQLException {
         // prompt
         try {
-            HerokuConnect.delete(recipe.getIndex());
+            if (Recipro.connectsToPrivateServer()) {
+                Connect.delete(recipe.getIndex());
+            } else {
+                HerokuConnect.delete(recipe.getIndex());
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }

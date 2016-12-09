@@ -16,9 +16,14 @@ import javafx.collections.*;
  */
 public class HerokuConnect {
 
-	private static String server = "jdbc:postgresql://ec2-79-125-24-188.eu-west-1.compute.amazonaws.com:5432/dchqmd99ipu1sb?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
-	private static String user = "nksltigykvzslg";
-	private static String password = "N1Y1owTvvzLgoQdT9Dg7XnPU0K";
+	/** Address of the Database Server. */
+	private static final String server = "jdbc:postgresql://ec2-79-125-24-188.eu-west-1.compute.amazonaws.com:5432/dchqmd99ipu1sb?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+
+	/** Database User. */
+	private static final String user = "nksltigykvzslg";
+
+	/** Database User Password. */
+	private static final String password = "N1Y1owTvvzLgoQdT9Dg7XnPU0K";
 
 	/** Establishes a Connection with the Database. */
 	private static Connection connection;
@@ -44,7 +49,7 @@ public class HerokuConnect {
 			set = statement.executeQuery(SQL);
 
 			while (set.next()) {
-				Recipe r = new Recipe(set.getNString("recipe_index"), set.getNString("recipe_text"), set.getNString("recipe_text"));
+				Recipe r = new Recipe(set.getString("recipe_index"), set.getString("recipe_text"), set.getString("recipe_text"));
 				results.addAll(r);
 			}
 		} catch (SQLException e) {
@@ -84,8 +89,8 @@ public class HerokuConnect {
 			statement = connection.createStatement();
 			set = statement.executeQuery(SQL);
 
-			while (set.next() != false) {
-				Recipe r = new Recipe(set.getString(1), set.getString(2), set.getString(3));
+			while (set.next()) {
+				Recipe r = new Recipe(set.getString("recipe_index"), set.getString("recipe_title"), set.getString("recipe_text"));
 				results.addAll(r);
 			}
 		} catch (SQLException e) {

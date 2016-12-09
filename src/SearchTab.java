@@ -28,7 +28,12 @@ class SearchTab extends Tab {
         super("Searching...");
 
         try {
-            rowData = Connect.getAll();
+            if (Recipro.connectsToPrivateServer()) {
+                rowData = Connect.getAll();
+            } else {
+                rowData = HerokuConnect.getAll();
+            }
+
             setup();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -45,7 +50,12 @@ class SearchTab extends Tab {
         super("Searching...");
 
         try {
-            rowData = HerokuConnect.getByKeyword(s);
+            if (Recipro.connectsToPrivateServer()) {
+                rowData = Connect.getByKeyword(s);
+            } else {
+                rowData = HerokuConnect.getByKeyword(s);
+            }
+
             setup();
         } catch (SQLException e) {
             e.printStackTrace();

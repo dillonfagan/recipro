@@ -92,11 +92,9 @@ public class Connect {
 
 			for (int i = 0; i < keywords.size(); i++) {
 				if (i == 0) {
-					SQL += "(dishName LIKE '%" + keywords.get(i) + "%' OR ingredients LIKE '%"
-						+ keywords.get(i) + "%' OR recipe LIKE '%" + keywords.get(i) + "%')";
+					SQL += "(dishName LIKE '%" + keywords.get(i) + keywords.get(i) + "%' OR recipe LIKE '%" + keywords.get(i) + "%')";
 				} else {
-					SQL += "OR (dishName LIKE '%" + keywords.get(i) + "%' OR ingredients LIKE'%"
-						+ keywords.get(i) + "%' OR recipe LIKE '%" + keywords.get(i) + "%')";
+					SQL += "OR (dishName LIKE '%" + keywords.get(i) + keywords.get(i) + "%' OR recipe LIKE '%" + keywords.get(i) + "%')";
 				}
 			}
 
@@ -138,11 +136,11 @@ public class Connect {
 	 * @param recipe
 	 * @throws SQLException
 	 */
-	public static void add(String name, String ingredient, String recipe) throws SQLException {
+	public static void add(String name, String recipe) throws SQLException {
 		try {
 			connector();
 
-			final String SQL = "INSERT INTO MasterTable VALUES('"+name+"', '"+ingredient+"', '"+recipe+"')";
+			final String SQL = "INSERT INTO MasterTable (dishName, recipe) VALUES('"+name+"', '"+recipe+"')";
 			statement = connection.createStatement();
 			statement.executeUpdate(SQL);
 		} catch (SQLException e) {
@@ -158,7 +156,7 @@ public class Connect {
 	 * @param recipe
 	 * @throws SQLException
 	 */
-	public static void update(int index, String name, String ingredient, String recipe) throws SQLException {
+	public static void update(String index, String name, String recipe) throws SQLException {
 		try {
 			connector();
 
@@ -167,6 +165,22 @@ public class Connect {
 			statement.executeUpdate(SQL);
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+	}
+
+	/**
+	* Deletes an existing Recipe by its Index.
+	* @param index
+	*/
+	public static void delete(String index) throws SQLException {
+		try {
+			connector();
+
+			final String SQL = "DELETE from MasterTable WHERE pId='" + index + "';";
+			statement = connection.createStatement();
+			statement.executeUpdate(SQL);
+		} catch (SQLException e) {
+			System.out.println("The record could not be deleted.");
 		}
 	}
 }
