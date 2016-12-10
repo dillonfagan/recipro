@@ -9,8 +9,6 @@ import java.util.ArrayList;
 
 import javafx.collections.*;
 
-// NOTE ResultTable is deprecated; can now be dropped from DB.
-
 /**
  * Created by Robert Russell
  *
@@ -44,6 +42,29 @@ public class Connect {
 	/** URL for connecting to the Database. */
 	private static String jdbcurl = "jdbc:sqlserver://" + Server + ":" + port + ";databaseName=" + database + ";user=" + user
 			+ ";password=" + password;
+
+	/**
+	 * Returns a Recipe given its Index.
+	 * @throws SQLException
+	 */
+	public static Recipe getRecipe(String index) throws SQLException {
+		Recipe r = new Recipe();
+
+		try {
+			connector();
+
+			final String SQL = "SELECT * FROM MasterTable WHERE pId='" + index + "';";
+			statement = connection.createStatement();
+			set = statement.executeQuery(SQL);
+
+			set.next();
+			r = new Recipe(set.getString(1), set.getString(2), set.getString(3));
+		} catch (SQLException e) {
+			System.out.println("The record could not be retrieved.");
+		}
+
+		return r;
+	}
 
 	/**
 	 * Returns an ObservableList containing all Recipes in the Database.

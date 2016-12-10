@@ -79,7 +79,14 @@ class SearchTab extends Tab {
             row.setOnMouseClicked(e -> {
                 if (e.getClickCount() == 2 && (!row.isEmpty())) {
                     try {
-                        RecipeTab newRecipeTab = new RecipeTab(row.getItem());
+                        Recipe r;
+                        if (Recipro.connectsToPrivateServer()) {
+                            r = Connect.getRecipe(row.getItem().getIndex());
+                        } else {
+                            r = HerokuConnect.getRecipe(row.getItem().getIndex());
+                        }
+
+                        RecipeTab newRecipeTab = new RecipeTab(r);
                         getTabPane().getTabs().addAll(newRecipeTab);
                         getTabPane().getSelectionModel().select(newRecipeTab);
                     } catch (SQLException ex) {

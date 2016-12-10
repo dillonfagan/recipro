@@ -35,6 +35,29 @@ public class HerokuConnect {
 	private static ResultSet set;
 
 	/**
+	 * Returns a Recipe given its Index.
+	 * @throws SQLException
+	 */
+	public static Recipe getRecipe(String index) throws SQLException {
+		Recipe r = new Recipe();
+
+		try {
+			connector();
+
+			final String SQL = "select * from recipes where recipe_index='" + index + "';";
+			statement = connection.createStatement();
+			set = statement.executeQuery(SQL);
+
+			set.next();
+			r = new Recipe(set.getString(1), set.getString(2), set.getString(3));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		return r;
+	}
+
+	/**
 	 * Returns an ObservableList containing all Recipes in the Database.
 	 * @throws SQLException
 	 */
