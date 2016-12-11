@@ -17,13 +17,13 @@ import javafx.collections.*;
 public class HerokuConnect {
 
 	/** Address of the Database Server. */
-	private static final String server = "jdbc:postgresql://ec2-79-125-24-188.eu-west-1.compute.amazonaws.com:5432/dchqmd99ipu1sb?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
+	private static final String server = "jdbc:postgresql://ec2-107-21-212-175.compute-1.amazonaws.com:5432/d43kddmodnlmhv?ssl=true&sslfactory=org.postgresql.ssl.NonValidatingFactory";
 
 	/** Database User. */
-	private static final String user = "nksltigykvzslg";
+	private static final String user = "xukqlogkmzbazo";
 
 	/** Database User Password. */
-	private static final String password = "N1Y1owTvvzLgoQdT9Dg7XnPU0K";
+	private static final String password = "e942f135cb3072e6b243c1a12f840d50a0e0eb77986768164dedc95b28dc7d74";
 
 	/** Establishes a Connection with the Database. */
 	private static Connection connection;
