@@ -16,7 +16,7 @@ import javafx.scene.paint.Color;
 public class CalcTab extends Tab {
 
 	CalcTab() {
-		super("Unit Conversion");
+		super("Conversion Assistant");
 
 		// Primary layout for the tab
         VBox primaryLayout = new VBox();

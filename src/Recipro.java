@@ -74,6 +74,7 @@ public class Recipro extends Application {
             privateServer = !privateServer;
 
             // TODO Close all tabs?
+            tabs.getTabs().removeAll();
 
             // Toggle the Label of the serverConnectionCommand
             if (privateServer) {
@@ -88,7 +89,7 @@ public class Recipro extends Application {
         // Tools Menu
         Menu toolsMenu = new Menu("Tools");
 
-        MenuItem calcCommand = new MenuItem("Conversion Assist");
+        MenuItem calcCommand = new MenuItem("Conversion Assistant");
         calcCommand.setOnAction(a -> {
     		CalcTab newCalcTab = new CalcTab();
     		tabs.getTabs().add(newCalcTab);
