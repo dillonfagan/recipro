@@ -156,7 +156,7 @@ class RecipeTab extends Tab {
      * If confirmed, the Record is deleted (if it exists) and this Tab is closed.
      */
     private void delete() throws SQLException {
-        // prompt
+        // TODO Add a prompt.
         try {
             if (Recipro.connectsToPrivateServer()) {
                 Connect.delete(recipe.getIndex());

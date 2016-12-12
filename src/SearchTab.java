@@ -36,7 +36,7 @@ class SearchTab extends Tab {
 
             setup();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Could not connect to database.");
         }
     }
 
@@ -58,7 +58,7 @@ class SearchTab extends Tab {
 
             setup();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Could not connect to database.");
         }
     }
 

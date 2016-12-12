@@ -55,6 +55,7 @@ public class Recipro extends Application {
     private MenuBar createMenuBar() throws SQLException {
         MenuBar menuBar  = new MenuBar();
 
+        // File Menu
         Menu fileMenu = new Menu("File");
 
         MenuItem newRecipeCommand = new MenuItem("New Recipe...");
@@ -72,6 +73,8 @@ public class Recipro extends Application {
         serverConnectionCommand.setOnAction(a -> {
             privateServer = !privateServer;
 
+            // TODO Close all tabs?
+
             // Toggle the Label of the serverConnectionCommand
             if (privateServer) {
                 serverConnectionCommand.setText("Connect to Heroku");
@@ -82,7 +85,19 @@ public class Recipro extends Application {
 
         fileMenu.getItems().addAll(newRecipeCommand, serverConnectionCommand);
 
-        menuBar.getMenus().add(fileMenu);
+        // Tools Menu
+        Menu toolsMenu = new Menu("Tools");
+
+        MenuItem calcCommand = new MenuItem("Conversion Assist");
+        calcCommand.setOnAction(a -> {
+    		CalcTab newCalcTab = new CalcTab();
+    		tabs.getTabs().add(newCalcTab);
+    		tabs.getSelectionModel().select(newCalcTab);
+        });
+
+        toolsMenu.getItems().add(calcCommand);
+
+        menuBar.getMenus().addAll(fileMenu, toolsMenu);
 
         return menuBar;
     }
