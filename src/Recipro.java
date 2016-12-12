@@ -19,7 +19,8 @@ public class Recipro extends Application {
      * Determines whether to connect to the Heroku PostgreSQL DB or
      * a private Database.
      */
-    private static boolean privateServer = false;
+    private static boolean privateServer = true;
+
 
     /**
      * Initializes a new Stage as the main window.
@@ -31,11 +32,12 @@ public class Recipro extends Application {
 
         // Set up the window
         primaryStage.setTitle("Recipro");
-        primaryStage.setScene(new Scene(rootLayout, 860, 660));
+        primaryStage.setScene(new Scene(rootLayout, 1024, 768));
+        primaryStage.setMaximized(true);
 
         // Initialize the tab manager and add a HomeTab
         tabs = new TabPane();
-        tabs.setPrefSize(860, 660);
+        tabs.setPrefSize(3840, 2160);
         tabs.getTabs().add(new HomeTab());
 
         try {
@@ -69,7 +71,7 @@ public class Recipro extends Application {
             }
         });
 
-        MenuItem serverConnectionCommand = new MenuItem("Connect to SQL Server");
+        MenuItem serverConnectionCommand = new MenuItem("Connect to Heroku Server");
         serverConnectionCommand.setOnAction(a -> {
             privateServer = !privateServer;
 

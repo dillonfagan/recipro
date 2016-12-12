@@ -13,6 +13,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
  */
 class SearchTab extends Tab {
 
+    private String query = "GET_ALL";
+
     /** Displays Results of a Database Query. */
     private TableView<Recipe> table = new TableView<>();
 

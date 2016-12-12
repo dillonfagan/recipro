@@ -81,7 +81,7 @@ public class Connect {
 			set = statement.executeQuery(SQL);
 
 			while (set.next()) {
-				// NOTE How do we retrieve also the record's index in the DB?
+
 				Recipe r = new Recipe(set.getString(1), set.getString(2), set.getString(3));
 				results.addAll(r);
 			}
@@ -113,9 +113,9 @@ public class Connect {
 
 			for (int i = 0; i < keywords.size(); i++) {
 				if (i == 0) {
-					SQL += "(dishName LIKE '%" + keywords.get(i) + keywords.get(i) + "%' OR recipe LIKE '%" + keywords.get(i) + "%')";
+					SQL += "( UPPER(dishName) LIKE UPPER('%" + keywords.get(i) + "%') OR UPPER(recipe) LIKE UPPER( '%" + keywords.get(i) + "%'))";
 				} else {
-					SQL += "OR (dishName LIKE '%" + keywords.get(i) + keywords.get(i) + "%' OR recipe LIKE '%" + keywords.get(i) + "%')";
+					SQL += "OR (UPPER(dishName) LIKE UPPER('%" + keywords.get(i) + "%') OR UPPER(recipe) LIKE UPPER( '%" + keywords.get(i) + "%'))";
 				}
 			}
 

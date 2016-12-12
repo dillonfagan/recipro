@@ -103,9 +103,9 @@ public class HerokuConnect {
 
 			for (int i = 0; i < keywords.size(); i++) {
 				if (i == 0) {
-					SQL += "(recipe_title like '%" + keywords.get(i) + "%' or recipe_text like '%" + keywords.get(i) + "%')";
+					SQL += "(UPPER(recipe_title) like UPPER('%" + keywords.get(i) + "%') or UPPER(recipe_text) like UPPER( '%" + keywords.get(i) + "%'))";
 				} else {
-					SQL += "OR (recipe_title like '%" + keywords.get(i) + "%' or recipe_text like '%" + keywords.get(i) + "%')";
+					SQL += "OR (UPPER(recipe_title) like UPPER('%" + keywords.get(i) + "%') or UPPER(recipe_text) like UPPER('%" + keywords.get(i) + "%'))";
 				}
 			}
 

@@ -6,6 +6,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.event.EventHandler;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.sql.SQLException;
 
@@ -34,8 +37,8 @@ class HomeTab extends Tab {
         primaryLayout.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
         // Logo
-        //Image logo = new Image("/assets/logo.png");
-        //ImageView logoView = new ImageView(logo);
+        Image logo = new Image("/assets/logo.png");
+        ImageView logoView = new ImageView(logo);
 
         // Secondary layout to house input and submit button
         HBox secondaryLayout = new HBox();
@@ -47,6 +50,21 @@ class HomeTab extends Tab {
         searchField.setPromptText("Enter ingredients...");
         searchField.setPrefSize(250, TextField.USE_COMPUTED_SIZE);
         searchField.setFocusTraversable(false);
+        searchField.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            public void handle(KeyEvent k) {
+            	KeyCode key = k.getCode();
+            	if(key == KeyCode.ENTER){
+            	try {
+    				search();
+    			} catch (Exception e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+
+                searchField.setText("");
+            }
+            }
+        });
 
         // Button to submit the query
         Button searchButton = new Button("Search");
@@ -75,7 +93,7 @@ class HomeTab extends Tab {
         secondaryLayout.getChildren().addAll(searchField, searchButton);
 
         // Add all items to the primary layout
-        primaryLayout.getChildren().addAll(secondaryLayout, newRecipeButton);
+        primaryLayout.getChildren().addAll(logoView,secondaryLayout, newRecipeButton);
 
         // Set primary layout as the content of the tab
         setContent(primaryLayout);
